@@ -1,0 +1,20 @@
+begin;
+insert into auth.users(id,email) values('00000000-0000-4000-8000-000000000021','board-check@example.invalid');
+set local role authenticated;
+select set_config('request.jwt.claim.sub','00000000-0000-4000-8000-000000000021',true);
+insert into public.billing_customers(id,name) values('00000000-0000-4000-8000-000000000022','Board customer');
+insert into public.billing_products(id,name,price,colour,size) values('00000000-0000-4000-8000-000000000023','Melamine board',820,'Storm Grey','2750 × 1830 × 16 mm');
+do $$ declare q uuid; inv uuid; direct_inv uuid; begin
+ q:=public.billing_create_invoice('{"number":"BOARD-QUOTE-CHECK","document_type":"quote","customer_id":"00000000-0000-4000-8000-000000000022","issued_on":"2026-11-18","due_on":"2026-12-18","currency":"ZAR","tax_rate":15,"items":[{"product_id":"00000000-0000-4000-8000-000000000023","quantity":2}]}');
+ if not exists(select from public.billing_invoice_items where invoice_id=q and colour='Storm Grey' and size='2750 × 1830 × 16 mm') then raise exception 'Quote attributes missing'; end if;
+ update public.billing_products set colour='White',size='2440 × 1220 × 18 mm' where id='00000000-0000-4000-8000-000000000023';
+ inv:=public.billing_invoice_from_quote(q,'BOARD-INVOICE-CHECK','2026-11-19','2026-12-19');
+ if not exists(select from public.billing_invoice_items where invoice_id=inv and colour='Storm Grey' and size='2750 × 1830 × 16 mm' and quantity=2 and unit_price=820) then raise exception 'Converted invoice did not preserve attributes'; end if;
+ direct_inv:=public.billing_create_invoice('{"number":"BOARD-DIRECT-CHECK","customer_id":"00000000-0000-4000-8000-000000000022","issued_on":"2026-11-18","due_on":"2026-12-18","currency":"ZAR","tax_rate":15,"items":[{"product_id":"00000000-0000-4000-8000-000000000023","quantity":1}]}');
+ if not exists(select from public.billing_invoice_items where invoice_id=direct_inv and colour='White' and size='2440 × 1220 × 18 mm') then raise exception 'Direct invoice attributes missing'; end if;
+ update public.billing_products set colour='',size='' where id='00000000-0000-4000-8000-000000000023';
+ if not exists(select from public.billing_invoice_items where invoice_id=q and colour='Storm Grey') then raise exception 'Original quote changed'; end if;
+end $$;
+reset role;
+select 'PASS: product attributes saved, direct invoice attributes, quote-to-invoice attribute preservation, historical snapshot isolation' as result;
+rollback;

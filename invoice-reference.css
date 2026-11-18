@@ -1,0 +1,50 @@
+/* A4 stationery based on the supplied Integri Boards invoice. */
+.reference-invoice .board-attributes{display:block;font-size:9px;font-style:normal;text-transform:none;color:#777;margin-top:5px;max-width:none;line-height:1.4}
+.detail-actions{flex-wrap:wrap;gap:12px}
+.document-link-note{font-size:.85rem;color:#62745e;margin:0 0 18px}
+.badge.converted{background:#e9f4e6;color:#578346}.badge.expired{background:#fbefe7;color:#b27b4a}
+@media print{.document-link-note{display:none!important}}
+.wide-modal:has(.reference-invoice){width:890px;background:#f1f1f1}
+.reference-invoice{font-family:Arial,Helvetica,sans-serif!important;display:flex;flex-direction:column;width:794px;min-height:1123px;padding:35px 30px 36px!important;border:0!important;box-shadow:0 1px 6px #00000012;margin:0 auto 20px;color:#111;line-height:1.3}
+.reference-invoice h1,.reference-invoice h2,.reference-invoice h3{font-family:Arial,Helvetica,sans-serif}
+.reference-invoice .document-heading{display:flex;justify-content:space-between;gap:30px;align-items:flex-start;min-height:197px}
+.reference-invoice .document-heading h1{font-size:22px;letter-spacing:0;margin:0 0 8px;font-weight:700;color:#050505}
+.document-facts{display:grid;grid-template-columns:145px 95px;gap:4px 10px;margin:0;font-size:11px;line-height:1.25}
+.document-facts dt{color:#888}.document-facts dd{margin:0;text-align:right;min-height:13px;color:#555;overflow-wrap:anywhere}
+.document-logo{width:220px;height:87px;object-fit:contain;margin-top:15px}
+.document-parties{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-bottom:17px;min-height:153px}
+.party-label{font-size:12px;color:#999;font-weight:700}
+.reference-invoice .document-party h2{font-size:17px;line-height:1.2;margin:2px 0 13px;letter-spacing:0;text-transform:uppercase}
+.reference-invoice .vat-number{font-size:10.5px;margin-bottom:7px;color:#666;min-height:14px}
+.vat-number b{font-weight:700;margin-right:5px}
+.document-addresses{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+.document-addresses h4{font-size:10.5px;color:#777;margin:0 0 3px;font-weight:700}
+.reference-invoice .document-addresses p{font-size:10.5px;line-height:1.45;white-space:pre-line;color:#777;text-transform:uppercase;overflow-wrap:anywhere}
+.reference-invoice .document-items{table-layout:fixed;width:100%;border-collapse:collapse;font-size:10.5px}
+.reference-invoice .document-items th{background:#fafafa;border-top:2px solid #dedede;border-bottom:2px solid #dedede;color:#999;font-style:italic;font-weight:400;font-size:10.5px;padding:5px 2px;white-space:nowrap;text-align:right}
+.reference-invoice .document-items th:first-child{text-align:left}
+.reference-invoice .document-items td{padding:12px 2px 8px;border-bottom:1px solid #dedede;font-size:10.5px;text-align:right;color:#333;vertical-align:top;overflow-wrap:anywhere}
+.reference-invoice .document-items td:first-child{text-align:left;font-style:italic;text-transform:uppercase}
+.reference-invoice .document-items td:nth-child(2){font-weight:700}
+.reference-invoice .document-items td:last-child strong{font-weight:700}
+.reference-invoice .document-bottom{height:auto;display:grid;grid-template-columns:1fr 205px;gap:30px;border-top:2px solid #ddd;padding:17px 0 0;margin-top:auto;letter-spacing:0;min-height:185px;font-size:10.5px;color:#444}
+.reference-invoice .document-payment p{font-size:10.5px;color:#444;line-height:1.25;white-space:pre-line}
+.document-totals dl{display:grid;grid-template-columns:1fr auto;gap:5px 14px;margin:0;font-size:10.5px}
+.document-totals dt{text-align:left}.document-totals dd{margin:0;text-align:right;font-weight:700}
+.document-totals .grand-total{margin-top:27px}
+.balance-label{text-align:right;color:#999;font-weight:700;font-size:12px;margin-top:19px}
+.balance-amount{text-align:right;font-size:20px;font-weight:700;margin-top:7px;color:#000}
+.document-notes{margin-top:17px;max-width:390px}.document-notes b{font-size:10px;color:#888}.reference-invoice .document-notes p{margin-top:5px}
+.document-continued{align-self:start;text-align:right}
+.wide-modal:has(.reference-invoice) .detail-actions{padding:0 0 22px}.wide-modal:has(.reference-invoice) .modal-heading{margin-bottom:17px}
+@media screen and (max-width:870px){.wide-modal:has(.reference-invoice){max-width:calc(100vw - 16px);padding:15px}.reference-invoice{margin-left:0;margin-right:0}.wide-modal:has(.reference-invoice) .detail-actions{position:sticky;left:0;max-width:calc(100vw - 48px)}}
+@media print{
+ @page{size:A4;margin:0}
+ html,body{margin:0!important;padding:0!important;background:#fff!important}
+ dialog.wide-modal:has(.reference-invoice){position:absolute!important;inset:0 auto auto 0!important;width:210mm!important;max-width:none!important;margin:0!important;padding:0!important;overflow:visible!important;background:#fff!important}
+ .reference-invoice{width:210mm!important;min-height:296mm!important;margin:0!important;padding:10mm 8mm 12mm!important;box-shadow:none!important;break-after:page;page-break-after:always}
+ .reference-invoice:last-child{break-after:auto;page-break-after:auto}
+ .document-heading,.document-parties,.document-bottom{break-inside:avoid}
+ .document-logo{print-color-adjust:exact;-webkit-print-color-adjust:exact}
+ .reference-invoice .document-bottom{margin-top:auto!important}
+}
